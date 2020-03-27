@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.2.5.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.techland.paypay</groupId>
 	<artifactId>paypayMerchant</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>merchant</name>
 	<description>Merchant micro service for paypay app</description>
-
+	
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+		<spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+		<generatedSources>${project.build.directory}/generated-sources/annotations</generatedSources>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -82,6 +85,14 @@
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+        <groupId>com.techland.paypay</groupId>
+        <artifactId>paypay-core</artifactId>
+        <version>3.0</version>
+        <scope>system</scope>
+        <systemPath>${basedir}/paypayCore.jar</systemPath>
+    </dependency>
+		
 	</dependencies>
 
 	<dependencyManagement>
@@ -93,13 +104,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-      			<groupId>paypayCore</groupId>  
-       			<artifactId>com.techland.paypay</artifactId>  
-      			 <version>1.0</version> 
-      			<scope>system</scope>
-     		  <systemPath>${pom.basedir}/src/main/java/paypayCore.jar</systemPath>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -109,7 +113,60 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <!-- Need to disable default annotation processing since apt-maven-plugin takes over -->
+          <compilerArgument>-proc:none</compilerArgument>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mysema.maven</groupId>
+        <artifactId>apt-maven-plugin</artifactId>
+        <version>1.1.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${generatedSources}</outputDirectory>
+              <processors>
+                <processor>com.techland.paypay.annotations.TechLandAnnotationProcessor</processor>
+              </processors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <!-- Need to ensure the generated source folder is added to the project classpath, in jdt.ls -->
+            <id>add-source</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>add-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${generatedSources}</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>	
 		</plugins>
 	</build>
+	<repositories>
+    <repository>
+        <id>local-maven-repo</id>
+        <url>file:///${project.basedir}/libs</url>
+    </repository>
+</repositories>
 
 </project>

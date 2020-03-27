@@ -4,31 +4,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ServiceResponse {
-	
-	private boolean success;
-	private int responseCode;
-	private String messaged;
 
-	
-	
-	public boolean isSuccess() {
-		return success;
+	public void setMessaged(String sucessMessage) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void setSuccess(boolean success) {
-		this.success = success;
+
+	public void setResponseCode(String sucessCode) {
+		// TODO Auto-generated method stub
+		
 	}
-	public int getResponseCode() {
-		return responseCode;
+
+	public void setSuccess(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
-	public void setResponseCode(int responseCode) {
-		this.responseCode = responseCode;
-	}
-	public String getMessaged() {
-		return messaged;
-	}
-	public void setMessaged(String messaged) {
-		this.messaged = messaged;
-	}
-	
 
 }
