@@ -90,7 +90,7 @@
         <artifactId>paypay-core</artifactId>
         <version>3.0</version>
         <scope>system</scope>
-        <systemPath>${basedir}/paypayCore.jar</systemPath>
+        <systemPath>${basedir}/libs/com/techland/paypay/paypay-core/3.0/paypay-core-3.0.jar</systemPath>
     </dependency>
 		
 	</dependencies>
