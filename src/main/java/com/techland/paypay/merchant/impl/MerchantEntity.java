@@ -19,15 +19,20 @@ import com.techland.paypay.util.LogFeed;
 public final class MerchantEntity {
 	@Autowired
 	PayPayMessenger messenger;
-	@Autowired
-	LogFeed logfeed;
+
 
 	public void handleCommand(AddMerchantCommand merchant) {
 		MerchantAddedEvent event  = new MerchantAddedEvent(merchant.getId(),merchant.getName(),merchant.getCategory(),merchant.getEmail()
 				,merchant.getPhone(),merchant.getAddress(),merchant.getRCCNumber(),merchant.getBusinessDescription());
 		
 		handleEvent(event);
-		logfeed.getInstance(Constants.SUCESS_MESSAGE, MerchantEntity.class,Settings.DOMAIN, merchant.toString()).process();
+		LogFeed logfeed = new LogFeed.LogProcessor()  
+				.setInfo(Constants.SUCESS_MESSAGE)
+				.setClazz(MerchantEntity.class)
+				.setDomain(Settings.DOMAIN)
+				.setOtherInfo(merchant.toString())
+				.build(); 
+		logfeed.process();
 		
 	}
 	
