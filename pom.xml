@@ -88,9 +88,9 @@
 		<dependency>
         <groupId>com.techland.paypay</groupId>
         <artifactId>paypay-core</artifactId>
-        <version>3.0</version>
+        <version>3.1.1</version>
         <scope>system</scope>
-        <systemPath>${basedir}/libs/com/techland/paypay/paypay-core/3.0/paypay-core-3.0.jar</systemPath>
+        <systemPath>${basedir}/paypayCore.jar</systemPath>
     </dependency>
 		
 	</dependencies>

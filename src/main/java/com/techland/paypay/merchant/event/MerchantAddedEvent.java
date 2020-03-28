@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 import com.techland.paypay.contracts.PayPayEvent;
 import com.techland.paypay.contracts.TechLandEvent;
-import com.techland.paypay.merchant.helper.Settinge;
+import com.techland.paypay.merchant.helper.Settings;
 @TechLandEvent(externalName = "Merchant.MerchantAddedEvent")
 public class MerchantAddedEvent implements PayPayEvent,Serializable{
 	
@@ -73,7 +73,7 @@ public class MerchantAddedEvent implements PayPayEvent,Serializable{
 
 	@Override
 	public String getObiquitusName() {
-		return Settinge.DOMAIN+"."+this.getClass().getSimpleName();
+		return Settings.DOMAIN+"."+this.getClass().getSimpleName();
 	}
 
 	public String getName() {
