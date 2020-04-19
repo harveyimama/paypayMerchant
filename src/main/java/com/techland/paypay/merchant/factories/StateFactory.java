@@ -1,0 +1,1 @@
+package com.techland.paypay.merchant.factories;import com.techland.paypay.contracts.PayPayState;import com.techland.paypay.merchant.impl.MerchantState;public class StateFactory { public PayPayState getState(){ return (PayPayState) new MerchantState(); } }

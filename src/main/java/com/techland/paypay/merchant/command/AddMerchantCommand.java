@@ -1,5 +1,7 @@
 package com.techland.paypay.merchant.command;
 
+import java.util.List;
+
 public class AddMerchantCommand {
 	
 	private  String id ;
@@ -10,6 +12,7 @@ public class AddMerchantCommand {
 	private  String address;
 	private  String RCCNumber;
 	private  String businessDescription;
+	private  List<UserCommand> users;
 	public String getId() {
 		return id;
 	}
@@ -58,6 +61,13 @@ public class AddMerchantCommand {
 	public void setBusinessDescription(String businessDescription) {
 		this.businessDescription = businessDescription;
 	}
+	public List<UserCommand> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserCommand> users) {
+		this.users = users;
+	}
+	
 	
 	
 

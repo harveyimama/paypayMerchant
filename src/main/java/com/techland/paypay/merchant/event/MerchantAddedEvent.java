@@ -2,20 +2,18 @@ package com.techland.paypay.merchant.event;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-
 import com.techland.paypay.contracts.PayPayEvent;
 import com.techland.paypay.contracts.TechLandEvent;
 import com.techland.paypay.merchant.helper.Settings;
+
 @TechLandEvent(externalName = "Merchant.MerchantAddedEvent")
-public class MerchantAddedEvent implements PayPayEvent,Serializable{
-	
+public class MerchantAddedEvent implements PayPayEvent, Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String id ;
-	private final String eventId;
-	private final Timestamp timestamp;
+	private final String id;
 	private final String name;
 	private final String category;
 	private final String email;
@@ -23,11 +21,11 @@ public class MerchantAddedEvent implements PayPayEvent,Serializable{
 	private final String address;
 	private final String RCCNumber;
 	private final String businessDescription;
-	
-	
-	
-	public MerchantAddedEvent(String id, String eventId, Timestamp timestamp, String name, String category,
-			String email, String phone, String address, String rCCNumber, String businessDescription) {
+	private final String eventId;
+	private final Timestamp timestamp;
+
+	public MerchantAddedEvent(String id, String name, String category, String email, String phone, String address,
+			String RCCNumber, String businessDescription ,String eventId, Timestamp timestamp) {
 
 		this.id = id;
 		this.eventId = eventId;
@@ -37,13 +35,15 @@ public class MerchantAddedEvent implements PayPayEvent,Serializable{
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
-		this.RCCNumber = rCCNumber;
+		this.RCCNumber = RCCNumber;
 		this.businessDescription = businessDescription;
+		
+
 	}
-	
-	public MerchantAddedEvent(String id, String name, String category,
-			String email, String phone, String address, String rCCNumber, String businessDescription) {
-	
+
+	public MerchantAddedEvent(String id, String name, String category, String email, String phone, String address,
+			String RCCNumber, String businessDescription) {
+
 		this.id = id;
 		this.eventId = com.techland.paypay.Settings.aggregateTag();
 		this.timestamp = new Timestamp(System.currentTimeMillis());
@@ -52,8 +52,9 @@ public class MerchantAddedEvent implements PayPayEvent,Serializable{
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
-		this.RCCNumber = rCCNumber;
-		this.businessDescription = businessDescription;
+		this.RCCNumber = RCCNumber;
+		this.businessDescription = businessDescription;	
+		
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class MerchantAddedEvent implements PayPayEvent,Serializable{
 
 	@Override
 	public String getObiquitusName() {
-		return Settings.DOMAIN+"."+this.getClass().getSimpleName();
+		return Settings.DOMAIN + "." + this.getClass().getSimpleName();
 	}
 
 	public String getName() {
@@ -103,7 +104,19 @@ public class MerchantAddedEvent implements PayPayEvent,Serializable{
 	public String getBusinessDescription() {
 		return businessDescription;
 	}
+
+	@Override
+	public String toString() {
+		return "{\"class\":\"MerchantAddedEvent\",\"id\":\"" + id + "\", \"name\":\"" + name + "\", \"category\":\""
+				+ category + "\", \"email\":\"" + email + "\", \"phone\":\"" + phone + "\", \"address\":\"" + address
+				+ "\", \"RCCNumber\":\"" + RCCNumber + "\", \"businessDescription\":\"" + businessDescription
+				+ "\", \"eventId\":\"" + eventId + "\", \"timestamp\":\"" + timestamp + "\"}";
+	}
+
 	
+
+	
+
 	
 
 }
