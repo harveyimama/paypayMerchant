@@ -4,6 +4,7 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+paypayCore.jar
 ### STS ###
 .apt_generated
 .classpath
